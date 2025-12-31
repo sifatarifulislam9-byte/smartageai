@@ -125,3 +125,51 @@ margin-top:70px;
 padding:20px;
 color:#9ca3af;
 }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+/* DASHBOARD RESPONSIVE */
+.dash-grid{
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:20px;
+}
+
+@media(max-width:900px){
+  .dash-grid{
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .dash-grid{
+    grid-template-columns: 1fr;
+  }
+
+  header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+
+  nav a{
+    display:inline-block;
+    margin:5px;
+  }
+
+  .hero{
+    padding:50px 20px;
+  }
+}
+
+.card{
+  width:100%;
+}
