@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>SmartAgeAI — AI Age Calculator | Smart Age Predictor</title>
-<meta name="description" content="SmartAgeAI is an advanced AI powered age calculator that predicts age intelligently. Fast, secure and accurate. Try now.">
+<head>
+<meta charset="UTF-8">
+<title>SmartAgeAI – Advanced AI Age Calculator</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="SmartAgeAI is a premium AI powered age calculator that shows exact age, birthday countdown, zodiac sign, life stats and motivational message.">
 <meta name="keywords" content="AI Age Calculator, Smart Age AI, Age Detector, Age Prediction Tool">
 <meta name="author" content="SmartAgeAI Team">
+
 <meta property="og:title" content="SmartAgeAI">
 <meta property="og:description" content="Advanced AI Powered Age Calculator">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SmartAgeAI">
-<meta charset="UTF-8">
-<title>SmartAgeAI – Advanced AI Age Calculator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="SmartAgeAI is a premium AI powered age calculator that shows exact age, birthday countdown, zodiac sign, life stats and motivational message.">
+
 <link rel="stylesheet" href="style.css">
-</head><header>
+
+<style>
+#dashboard{
+ display:none;
+ text-align:center;
+ margin-top:40px;
+}
+
+.dash-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+ padding:10px;
+}
+
+.card{
+ background:#0c0f1c;
+ color:white;
+ padding:15px;
+ border-radius:10px;
+}
+
+footer{
+ text-align:center;
+ padding:25px 10px;
+ margin-top:40px;
+ color:#bbb;
+}
+</style>
+</head>
+
+<body>
+
+<header>
   <h1>SmartAgeAI</h1>
   <nav>
     <a href="index.html">Home</a>
@@ -22,11 +58,29 @@
     <a href="terms.html">Terms</a>
   </nav>
 </header>
+
+
+<!---------------- MAIN CONTAINER ---------------->
+<section class="container" id="calculator">
+<h1>🎯 SmartAgeAI</h1>
+<p>Find Your Real Age, Life Stats & AI Insights</p>
+
+<input type="date" id="dob">
+<button onclick="calculateAge()">Calculate</button>
+
+<div id="result" class="box"></div>
+<div id="ai" class="box"></div>
+
+<a class="donate" href="#">Support Us 💚</a>
+</section>
+
+
+<!---------------- DASHBOARD ---------------->
 <section class="dashboard" id="dashboard">
-<body>
 <h2>Your Smart AI Dashboard</h2>
 
 <div class="dash-grid">
+
 <div class="card">
 <h3>Your Exact Age</h3>
 <p id="ageResult">00 Years</p>
@@ -41,35 +95,68 @@
 <h3>Fun AI Result</h3>
 <p id="funResult">Calculating...</p>
 </div>
+
 </div>
 </section>
 
-<nav>
 
-
-<section class="container">
-<h1>🎯 SmartAgeAI</h1>
-<p>Find Your Real Age, Life Stats & AI Insights</p>
-
-<input type="date" id="dob">
-<button onclick="calculateAge()">Calculate</button>
-
-<div id="result" class="box"></div>
-<div id="ai" class="box"></div>
-
-<a class="donate" href="#">Support Us 💚</a>
-</section>
-
+<!---------------- FOOTER ---------------->
 <footer>
   © 2025 SmartAgeAI — Founded & Owned by Md Ariful Islam Khan Sifat
   <br>
   Bangladesh • Worldwide Service 🌍
 </footer>
-footer{
-  text-align:center;
-  padding:25px 10px;
-  margin-top:40px;
+
+
+<!---------------- JAVASCRIPT ---------------->
+<script>
+function calculateAge(){
+ let dob = document.getElementById("dob").value;
+ if(!dob){
+  alert("Please select your date of birth");
+  return;
+ }
+
+ let birth = new Date(dob);
+ let today = new Date();
+
+ let age = today.getFullYear() - birth.getFullYear();
+ let month = today.getMonth() - birth.getMonth();
+
+ if(month < 0 || (month === 0 && today.getDate() < birth.getDate())){
+   age--;
+ }
+
+ // Show Dashboard
+ document.getElementById("calculator").style.display = "none";
+ document.getElementById("dashboard").style.display = "block";
+
+ document.getElementById("ageResult").innerText = age + " Years Old";
+
+
+ // ---------- Next Birthday ----------
+ let next = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
+ if(next < today){
+   next.setFullYear(today.getFullYear()+1);
+ }
+
+ let diff = Math.ceil((next - today)/(1000*60*60*24));
+ document.getElementById("nextBirthday").innerText = diff + " Days Left 🎉";
+
+
+ // ---------- Fun AI Result ----------
+ let funResults = [
+  "You have the energy of a Lion 🦁",
+  "Future Millionaire Potential 💸",
+  "Calm, Smart & Strong Minded 🧠",
+  "Highly Focused & Ambitious 🚀",
+  "Positive Soul With Bright Future ✨"
+ ];
+
+ document.getElementById("funResult").innerText =
+ funResults[Math.floor(Math.random()*funResults.length)];
 }
-<script src="script.js"></script>
+</script>
+
 </body>
 </html>
