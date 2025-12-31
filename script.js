@@ -1,9 +1,10 @@
- function calculateAge(){
- let dob = document.getElementById("dob").value;
- if(!dob){
- document.getElementById("result").innerHTML="Please select your date of birth.";
- return;
- }
+function calculateAge(){
+   // your age calculation code...
+
+   // After calculation success
+   document.getElementById("dashboard").style.display = "block";
+}
+ 
 
  let birth = new Date(dob);
  let now = new Date();
