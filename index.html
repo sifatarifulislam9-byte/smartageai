@@ -12,112 +12,137 @@
 </script>
 
 <meta charset="UTF-8">
-<title>SmartAgeAI – Ultimate AI Age Calculator</title>
+<title>SmartAgeAI – AI Age Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="description" content="SmartAgeAI – Neon Glass AI powered age calculator with animations, zodiac, birthday countdown and motivational messages.">
 
 <style>
 
-:root{
- --bg1:#050814;
- --glass:rgba(255,255,255,0.1);
- --stroke:rgba(255,255,255,0.25);
- --text:#fff;
-}
-
-body.light{
- --bg1:#ffffff;
- --glass:rgba(0,0,0,0.06);
- --stroke:rgba(0,0,0,0.2);
- --text:#000;
-}
-
 body{
- margin:0;
- background:linear-gradient(140deg,#050814,#0f1a4f,#301b6b);
- background-size:400% 400%;
- animation:bgMove 10s infinite alternate;
- font-family:Segoe UI,Arial;
- color:var(--text);
- text-align:center;
+  margin:0;
+  font-family:Segoe UI, Arial;
+  background:linear-gradient(130deg,#050814,#111b48,#1e0f49);
+  background-size:400% 400%;
+  animation:gradientMove 10s infinite alternate;
+  color:white;
+  text-align:center;
 }
 
-@keyframes bgMove{
- from{background-position:0%}
- to{background-position:100%}
+@keyframes gradientMove{
+  0%{background-position:0 0;}
+  100%{background-position:100% 100%;}
 }
 
 .container{
- max-width:850px;
- margin:auto;
- padding:25px;
-}
-
-.glass-box{
- background:var(--glass);
- border:1px solid var(--stroke);
- border-radius:18px;
- padding:20px;
- backdrop-filter:blur(10px);
+  max-width:800px;
+  margin:auto;
+  padding:30px;
 }
 
 h1{
- font-size:36px;
- margin-bottom:10px;
+  font-size:38px;
+  letter-spacing:1px;
+  animation:fade 1.3s;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(-10px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 input{
- padding:12px;
- border-radius:10px;
- border:none;
- outline:none;
- width:250px;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+  width:250px;
 }
 
 button{
- padding:12px 22px;
- border-radius:10px;
- border:none;
- cursor:pointer;
- margin-top:10px;
- font-weight:bold;
- transition:.3s;
+  padding:12px 25px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  background:#6c5ce7;
+  color:white;
+  font-weight:bold;
+  margin-top:10px;
+  transition:.3s;
 }
 
-.action{
- background:#6c5ce7;
+button:hover{
+  background:#8e7ff5;
+  transform:scale(1.03);
+}
+
+#result{
+  margin-top:25px;
+  font-size:22px;
+  font-weight:bold;
+  animation:pop .6s ease-in-out;
+}
+
+@keyframes pop{
+  from{opacity:0;transform:scale(.6);}
+  to{opacity:1;transform:scale(1);}
+}
+
+#dashboard{
+ display:none;
+ margin-top:40px;
+ animation:fade 1s;
+}
+
+.dash-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+ padding:10px;
+}
+
+.card{
+ background:rgba(255,255,255,.08);
  color:white;
-}
-.action:hover{ transform:scale(1.05); }
-
-.toggle{
- background:#ffbe0b;
-}
-
-.share-btn{
- background:#2ecc71;
- color:white;
+ padding:18px;
+ border-radius:12px;
+ border:1px solid rgba(255,255,255,.1);
+ backdrop-filter:blur(6px);
+ transform:translateY(20px);
+ opacity:0;
+ animation:cardShow .7s forwards;
 }
 
-.copy-btn{
- background:#3498db;
- color:white;
+.card:nth-child(2){animation-delay:.2s;}
+.card:nth-child(3){animation-delay:.3s;}
+.card:nth-child(4){animation-delay:.4s;}
+.card:nth-child(5){animation-delay:.5s;}
+.card:nth-child(6){animation-delay:.6s;}
+
+@keyframes cardShow{
+  to{opacity:1;transform:translateY(0);}
 }
 
-.save-btn{
- background:#ff006e;
- color:white;
+footer{
+ margin-top:40px;
+ padding:20px;
+ color:#bbb;
+ font-size:13px;
 }
 
+/* Fun Glow */
+.glow{
+ color:#ffdd59;
+ text-shadow:0 0 10px #ffdd59;
+}
+
+/* Loader */
 #loading{
  display:none;
  margin-top:20px;
 }
 
 .loader{
- width:120px;
- height:120px;
+ width:110px;
+ height:110px;
  border-radius:50%;
  margin:auto;
  border:6px solid rgba(255,255,255,0.2);
@@ -129,108 +154,72 @@ button{
  to{transform:rotate(360deg)}
 }
 
-.scan-text{
- margin-top:10px;
- font-size:18px;
-}
-
-#result{
- margin-top:25px;
- font-size:22px;
- font-weight:bold;
-}
-
-#dashboard{
- display:none;
- margin-top:30px;
-}
-
-.dash-grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
-}
-
-.card{
- background:var(--glass);
- border-radius:14px;
- padding:15px;
- border:1px solid var(--stroke);
-}
-
-/* celebration sparks */
-.spark{
- position:fixed;
- width:6px;
- height:6px;
- border-radius:50%;
-}
-
-footer{
- margin-top:45px;
- color:#aaa;
- font-size:12px;
-}
-
 </style>
-</head>
 
+</head>
 <body>
 
-<div class="container glass-box">
+<div class="container">
+  <h1>✨ SmartAgeAI</h1>
+  <p>Enter your Birth Date & Experience the Magic</p>
 
-<h1>✨ SmartAgeAI</h1>
-<p>Next Level AI Age Experience</p>
+  <input type="date" id="dob">
+  <br>
+  <button onclick="startProcess()">Calculate Age</button>
 
-<input type="date" id="dob"><br>
-<button class="action" onclick="startProcess()">Calculate Age 🚀</button>
-<button class="toggle" onclick="toggleTheme()">Toggle Theme</button>
+  <div id="loading">
+    <div class="loader"></div>
+    <p style="margin-top:10px">AI Calculating...</p>
+  </div>
 
-<div id="loading">
- <div class="loader"></div>
- <p class="scan-text">AI Scanning Your Life Data...</p>
-</div>
+  <div id="result"></div>
 
-<div id="result"></div>
+  <div id="dashboard">
+    <h2>🎯 Your AI Powered Age Dashboard</h2>
 
-<div id="dashboard">
- <h2>🎯 AI Age Dashboard</h2>
+    <div class="dash-grid">
+      <div class="card">
+        <h3>Exact Age</h3>
+        <p id="exactAge"></p>
+      </div>
 
-<div class="dash-grid">
- <div class="card"><h3>Exact Age</h3><p id="exactAge"></p></div>
- <div class="card"><h3>Next Birthday</h3><p id="nextBday"></p></div>
- <div class="card"><h3>Zodiac</h3><p id="zodiac"></p></div>
- <div class="card"><h3>Days Lived</h3><p id="daysLived"></p></div>
- <div class="card"><h3>Weeks Lived</h3><p id="weeksLived"></p></div>
- <div class="card"><h3>AI Message</h3><p id="motivation"></p></div>
-</div>
+      <div class="card">
+        <h3>Next Birthday</h3>
+        <p id="nextBday"></p>
+      </div>
 
-<br>
+      <div class="card">
+        <h3>Zodiac Sign</h3>
+        <p id="zodiac"></p>
+      </div>
 
-<button class="share-btn" onclick="shareWhatsApp()">Share WhatsApp</button>
-<button class="copy-btn" onclick="copyResult()">Copy Result</button>
-<button class="save-btn" onclick="saveScreen()">Save Screenshot</button>
+      <div class="card">
+        <h3>Days Lived</h3>
+        <p id="daysLived"></p>
+      </div>
 
-</div>
+      <div class="card">
+        <h3>Weeks Lived</h3>
+        <p id="weeksLived"></p>
+      </div>
 
+      <div class="card">
+        <h3>AI Fun Message</h3>
+        <p id="motivation"></p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <footer>
-SmartAgeAI © 2026 — Neon AI Experience
+ SmartAgeAI © 2026 – Powered by AI
 </footer>
-
-<!-- Screenshot Library -->
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 
-function toggleTheme(){
- document.body.classList.toggle("light");
-}
-
 function startProcess(){
- const dob = document.getElementById("dob").value;
- if(!dob){ alert("Please select date!"); return; }
+ const dob=document.getElementById("dob").value;
+ if(!dob){alert("Please select date!");return;}
 
  document.getElementById("loading").style.display="block";
  document.getElementById("result").innerHTML="";
@@ -239,117 +228,71 @@ function startProcess(){
  setTimeout(()=>{
   calculateAge();
   document.getElementById("loading").style.display="none";
- },1800);
-}
-
-// celebration sparks
-function celebrate(){
- for(let i=0;i<40;i++){
-  let s=document.createElement("div");
-  s.className="spark";
-  s.style.background=`hsl(${Math.random()*360},100%,60%)`;
-  s.style.top=Math.random()*100+"%";
-  s.style.left=Math.random()*100+"%";
-  s.style.opacity=1;
-  s.style.transition="1s";
-  document.body.appendChild(s);
-  setTimeout(()=>s.style.opacity=0,200);
-  setTimeout(()=>s.remove(),1200);
- }
- new Audio("https://assets.mixkit.co/sfx/download/mixkit-achievement-bell-600.wav").play();
+ },1400);
 }
 
 function calculateAge(){
- const dob=document.getElementById("dob").value;
- const birth=new Date(dob);
- const today=new Date();
+  const dob=document.getElementById("dob").value;
+  const birth=new Date(dob);
+  const today=new Date();
 
- let y=today.getFullYear()-birth.getFullYear();
- let m=today.getMonth()-birth.getMonth();
- let d=today.getDate()-birth.getDate();
+  let y=today.getFullYear()-birth.getFullYear();
+  let m=today.getMonth()-birth.getMonth();
+  let d=today.getDate()-birth.getDate();
 
- if(d<0){m--;d+=30;}
- if(m<0){y--;m+=12;}
+  if(d<0){m--;d+=30;}
+  if(m<0){y--;m+=12;}
 
- celebrate();
+  const funnyLines=[
+    `🎉 You are <span class='glow'>${y}</span> years of greatness!`,
+    `🔥 ${y} Years Old & Still Legendary!`,
+    `🚀 ${y} years completed in life journey!`,
+    `🌟 ${y}? Prime Human Version Activated!`,
+    `😎 ${y} years of pure awesomeness!`
+  ];
 
- let fun=[
- `🎉 You are <b>${y}</b> years of pure greatness!`,
- `🔥 ${y} years and still unbeatable!`,
- `😎 ${y}? LEGEND MODE ACTIVATED!`,
- `🚀 ${y} years of awesomeness completed!`,
- `🌟 ${y} and shining brighter than stars!`
- ];
+  document.getElementById("result").innerHTML=
+  funnyLines[Math.floor(Math.random()*funnyLines.length)];
 
- document.getElementById("result").innerHTML=
- fun[Math.floor(Math.random()*fun.length)];
+  document.getElementById("dashboard").style.display="block";
 
- document.getElementById("dashboard").style.display="block";
+  document.getElementById("exactAge").innerHTML=`${y} Years ${m} Months ${d} Days`;
 
- document.getElementById("exactAge").innerHTML=`${y} Years ${m} Months ${d} Days`;
+  let next=new Date(today.getFullYear(),birth.getMonth(),birth.getDate());
+  if(next<today) next.setFullYear(today.getFullYear()+1);
+  const diff=Math.ceil((next-today)/(1000*60*60*24));
+  document.getElementById("nextBday").innerHTML=`🎂 ${diff} Days Left`;
 
- let next = new Date(today.getFullYear(),birth.getMonth(),birth.getDate());
- if(next<today) next.setFullYear(today.getFullYear()+1);
+  const month=birth.getMonth()+1;
+  const day=birth.getDate();
+  let z="";
+  if((month==1&&day>=20)||(month==2&&day<=18)) z="Aquarius";
+  else if((month==2&&day>=19)||(month==3&&day<=20)) z="Pisces";
+  else if((month==3&&day>=21)||(month==4&&day<=19)) z="Aries";
+  else if((month==4&&day>=20)||(month==5&&day<=20)) z="Taurus";
+  else if((month==5&&day>=21)||(month==6&&day<=20)) z="Gemini";
+  else if((month==6&&day>=21)||(month==7&&day<=22)) z="Cancer";
+  else if((month==7&&day>=23)||(month==8&&day<=22)) z="Leo";
+  else if((month==8&&day>=23)||(month==9&&day<=22)) z="Virgo";
+  else if((month==9&&day>=23)||(month==10&&day<=22)) z="Libra";
+  else if((month==10&&day>=23)||(month==11&&day<=21)) z="Scorpio";
+  else if((month==11&&day>=22)||(month==12&&day<=21)) z="Sagittarius";
+  else z="Capricorn";
+  document.getElementById("zodiac").innerHTML=z;
 
- const left=Math.ceil((next-today)/(1000*60*60*24));
- document.getElementById("nextBday").innerHTML=`🎂 ${left} Days Left`;
+  const lived=Math.floor((today-birth)/(1000*60*60*24));
+  document.getElementById("daysLived").innerHTML=lived;
+  document.getElementById("weeksLived").innerHTML=Math.floor(lived/7);
 
- const month=birth.getMonth()+1;
- const day=birth.getDate();
- let z="";
-
- if((month==1&&day>=20)||(month==2&&day<=18)) z="Aquarius";
- else if((month==2&&day>=19)||(month==3&&day<=20)) z="Pisces";
- else if((month==3&&day>=21)||(month==4&&day<=19)) z="Aries";
- else if((month==4&&day>=20)||(month==5&&day<=20)) z="Taurus";
- else if((month==5&&day>=21)||(month==6&&day<=20)) z="Gemini";
- else if((month==6&&day>=21)||(month==7&&day<=22)) z="Cancer";
- else if((month==7&&day>=23)||(month==8&&day<=22)) z="Leo";
- else if((month==8&&day>=23)||(month==9&&day<=22)) z="Virgo";
- else if((month==9&&day>=23)||(month==10&&day<=22)) z="Libra";
- else if((month==10&&day>=23)||(month==11&&day<=21)) z="Scorpio";
- else if((month==11&&day>=22)||(month==12&&day<=21)) z="Sagittarius";
- else z="Capricorn";
-
- document.getElementById("zodiac").innerHTML=z;
-
- const lived=Math.floor((today-birth)/(1000*60*60*24));
- document.getElementById("daysLived").innerHTML=lived;
- document.getElementById("weeksLived").innerHTML=Math.floor(lived/7);
-
- const mot=[
- "✨ The world is lucky to have you.",
- "🔥 Your future is brighter than you think.",
- "🚀 You’re built for greatness.",
- "🌟 Best version of you is loading...",
- "💪 You are unstoppable."
- ];
-
- document.getElementById("motivation").innerHTML=
- mot[Math.floor(Math.random()*mot.length)];
-
- storedMessage = document.getElementById("result").innerText;
-}
-
-// SHARE
-function shareWhatsApp(){
- let msg = document.getElementById("result").innerText;
- window.open("https://wa.me/?text="+encodeURIComponent(msg));
-}
-
-function copyResult(){
- navigator.clipboard.writeText(document.getElementById("result").innerText);
- alert("Copied!");
-}
-
-// SAVE SCREEN
-function saveScreen(){
- html2canvas(document.body).then(canvas=>{
-  const link=document.createElement("a");
-  link.download="SmartAgeAI_Result.png";
-  link.href=canvas.toDataURL();
-  link.click();
- });
+  const mot=[
+    "✨ The world is lucky to have you.",
+    "🔥 Your future is brighter than ever.",
+    "🚀 You’re built for greatness.",
+    "🌟 Best days are ahead.",
+    "💪 You are unstoppable."
+  ];
+  document.getElementById("motivation").innerHTML=
+  mot[Math.floor(Math.random()*mot.length)];
 }
 
 </script>
