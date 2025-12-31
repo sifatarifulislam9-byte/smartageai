@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><html>
 <head>
 
-<!-- ⭐ GOOGLE ANALYTICS START ⭐ -->
+<!-- ⭐ GOOGLE ANALYTICS ⭐ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBHGMP0SXL"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,167 +10,348 @@
   gtag('js', new Date());
   gtag('config', 'G-EBHGMP0SXL');
 </script>
-<!-- ⭐ GOOGLE ANALYTICS END ⭐ -->
 
 <meta charset="UTF-8">
-<title>SmartAgeAI</title>
-  
-  
-<meta charset="UTF-8">
-<title>SmartAgeAI – Advanced AI Age Calculator</title>
-
+<title>SmartAgeAI – Ultimate AI Age Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="description" content="SmartAgeAI is a premium AI powered age calculator that shows exact age, birthday countdown, zodiac sign, life stats and motivational message.">
-<meta name="keywords" content="AI Age Calculator, Smart Age AI, Age Detector, Age Prediction Tool">
-<meta name="author" content="SmartAgeAI Team">
-
-<meta property="og:title" content="SmartAgeAI">
-<meta property="og:description" content="Advanced AI Powered Age Calculator">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SmartAgeAI">
-
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="SmartAgeAI – Neon Glass AI powered age calculator with animations, zodiac, birthday countdown and motivational messages.">
 
 <style>
+
+:root{
+ --bg1:#050814;
+ --glass:rgba(255,255,255,0.1);
+ --stroke:rgba(255,255,255,0.25);
+ --text:#fff;
+}
+
+body.light{
+ --bg1:#ffffff;
+ --glass:rgba(0,0,0,0.06);
+ --stroke:rgba(0,0,0,0.2);
+ --text:#000;
+}
+
+body{
+ margin:0;
+ background:linear-gradient(140deg,#050814,#0f1a4f,#301b6b);
+ background-size:400% 400%;
+ animation:bgMove 10s infinite alternate;
+ font-family:Segoe UI,Arial;
+ color:var(--text);
+ text-align:center;
+}
+
+@keyframes bgMove{
+ from{background-position:0%}
+ to{background-position:100%}
+}
+
+.container{
+ max-width:850px;
+ margin:auto;
+ padding:25px;
+}
+
+.glass-box{
+ background:var(--glass);
+ border:1px solid var(--stroke);
+ border-radius:18px;
+ padding:20px;
+ backdrop-filter:blur(10px);
+}
+
+h1{
+ font-size:36px;
+ margin-bottom:10px;
+}
+
+input{
+ padding:12px;
+ border-radius:10px;
+ border:none;
+ outline:none;
+ width:250px;
+}
+
+button{
+ padding:12px 22px;
+ border-radius:10px;
+ border:none;
+ cursor:pointer;
+ margin-top:10px;
+ font-weight:bold;
+ transition:.3s;
+}
+
+.action{
+ background:#6c5ce7;
+ color:white;
+}
+.action:hover{ transform:scale(1.05); }
+
+.toggle{
+ background:#ffbe0b;
+}
+
+.share-btn{
+ background:#2ecc71;
+ color:white;
+}
+
+.copy-btn{
+ background:#3498db;
+ color:white;
+}
+
+.save-btn{
+ background:#ff006e;
+ color:white;
+}
+
+#loading{
+ display:none;
+ margin-top:20px;
+}
+
+.loader{
+ width:120px;
+ height:120px;
+ border-radius:50%;
+ margin:auto;
+ border:6px solid rgba(255,255,255,0.2);
+ border-top:6px solid white;
+ animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+ to{transform:rotate(360deg)}
+}
+
+.scan-text{
+ margin-top:10px;
+ font-size:18px;
+}
+
+#result{
+ margin-top:25px;
+ font-size:22px;
+ font-weight:bold;
+}
+
 #dashboard{
  display:none;
- text-align:center;
- margin-top:40px;
+ margin-top:30px;
 }
 
 .dash-grid{
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:15px;
- padding:10px;
 }
 
 .card{
- background:#0c0f1c;
- color:white;
+ background:var(--glass);
+ border-radius:14px;
  padding:15px;
- border-radius:10px;
+ border:1px solid var(--stroke);
+}
+
+/* celebration sparks */
+.spark{
+ position:fixed;
+ width:6px;
+ height:6px;
+ border-radius:50%;
 }
 
 footer{
- text-align:center;
- padding:25px 10px;
- margin-top:40px;
- color:#bbb;
+ margin-top:45px;
+ color:#aaa;
+ font-size:12px;
 }
+
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>SmartAgeAI</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-  </nav>
-</header>
+<div class="container glass-box">
 
+<h1>✨ SmartAgeAI</h1>
+<p>Next Level AI Age Experience</p>
 
-<!---------------- MAIN CONTAINER ---------------->
-<section class="container" id="calculator">
-<h1>🎯 SmartAgeAI</h1>
-<p>Find Your Real Age, Life Stats & AI Insights</p>
+<input type="date" id="dob"><br>
+<button class="action" onclick="startProcess()">Calculate Age 🚀</button>
+<button class="toggle" onclick="toggleTheme()">Toggle Theme</button>
 
-<input type="date" id="dob">
-<button onclick="calculateAge()">Calculate</button>
+<div id="loading">
+ <div class="loader"></div>
+ <p class="scan-text">AI Scanning Your Life Data...</p>
+</div>
 
-<div id="result" class="box"></div>
-<div id="ai" class="box"></div>
+<div id="result"></div>
 
-<a class="donate" href="#">Support Us 💚</a>
-</section>
-
-
-<!---------------- DASHBOARD ---------------->
-<section class="dashboard" id="dashboard">
-<h2>Your Smart AI Dashboard</h2>
+<div id="dashboard">
+ <h2>🎯 AI Age Dashboard</h2>
 
 <div class="dash-grid">
-
-<div class="card">
-<h3>Your Exact Age</h3>
-<p id="ageResult">00 Years</p>
+ <div class="card"><h3>Exact Age</h3><p id="exactAge"></p></div>
+ <div class="card"><h3>Next Birthday</h3><p id="nextBday"></p></div>
+ <div class="card"><h3>Zodiac</h3><p id="zodiac"></p></div>
+ <div class="card"><h3>Days Lived</h3><p id="daysLived"></p></div>
+ <div class="card"><h3>Weeks Lived</h3><p id="weeksLived"></p></div>
+ <div class="card"><h3>AI Message</h3><p id="motivation"></p></div>
 </div>
 
-<div class="card">
-<h3>Next Birthday</h3>
-<p id="nextBirthday">Loading...</p>
-</div>
+<br>
 
-<div class="card">
-<h3>Fun AI Result</h3>
-<p id="funResult">Calculating...</p>
-</div>
+<button class="share-btn" onclick="shareWhatsApp()">Share WhatsApp</button>
+<button class="copy-btn" onclick="copyResult()">Copy Result</button>
+<button class="save-btn" onclick="saveScreen()">Save Screenshot</button>
 
 </div>
-</section>
 
+</div>
 
-<!---------------- FOOTER ---------------->
 <footer>
-  © 2025 SmartAgeAI — Founded & Owned by Md Ariful Islam Khan Sifat
-  <br>
-  Bangladesh • Worldwide Service 🌍
+SmartAgeAI © 2026 — Neon AI Experience
 </footer>
 
+<!-- Screenshot Library -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-<!---------------- JAVASCRIPT ---------------->
 <script>
+
+function toggleTheme(){
+ document.body.classList.toggle("light");
+}
+
+function startProcess(){
+ const dob = document.getElementById("dob").value;
+ if(!dob){ alert("Please select date!"); return; }
+
+ document.getElementById("loading").style.display="block";
+ document.getElementById("result").innerHTML="";
+ document.getElementById("dashboard").style.display="none";
+
+ setTimeout(()=>{
+  calculateAge();
+  document.getElementById("loading").style.display="none";
+ },1800);
+}
+
+// celebration sparks
+function celebrate(){
+ for(let i=0;i<40;i++){
+  let s=document.createElement("div");
+  s.className="spark";
+  s.style.background=`hsl(${Math.random()*360},100%,60%)`;
+  s.style.top=Math.random()*100+"%";
+  s.style.left=Math.random()*100+"%";
+  s.style.opacity=1;
+  s.style.transition="1s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.style.opacity=0,200);
+  setTimeout(()=>s.remove(),1200);
+ }
+ new Audio("https://assets.mixkit.co/sfx/download/mixkit-achievement-bell-600.wav").play();
+}
+
 function calculateAge(){
- let dob = document.getElementById("dob").value;
- if(!dob){
-  alert("Please select your date of birth");
-  return;
- }
+ const dob=document.getElementById("dob").value;
+ const birth=new Date(dob);
+ const today=new Date();
 
- let birth = new Date(dob);
- let today = new Date();
+ let y=today.getFullYear()-birth.getFullYear();
+ let m=today.getMonth()-birth.getMonth();
+ let d=today.getDate()-birth.getDate();
 
- let age = today.getFullYear() - birth.getFullYear();
- let month = today.getMonth() - birth.getMonth();
+ if(d<0){m--;d+=30;}
+ if(m<0){y--;m+=12;}
 
- if(month < 0 || (month === 0 && today.getDate() < birth.getDate())){
-   age--;
- }
+ celebrate();
 
- // Show Dashboard
- document.getElementById("calculator").style.display = "none";
- document.getElementById("dashboard").style.display = "block";
-
- document.getElementById("ageResult").innerText = age + " Years Old";
-
-
- // ---------- Next Birthday ----------
- let next = new Date(today.getFullYear(), birth.getMonth(), birth.getDate());
- if(next < today){
-   next.setFullYear(today.getFullYear()+1);
- }
-
- let diff = Math.ceil((next - today)/(1000*60*60*24));
- document.getElementById("nextBirthday").innerText = diff + " Days Left 🎉";
-
-
- // ---------- Fun AI Result ----------
- let funResults = [
-  "You have the energy of a Lion 🦁",
-  "Future Millionaire Potential 💸",
-  "Calm, Smart & Strong Minded 🧠",
-  "Highly Focused & Ambitious 🚀",
-  "Positive Soul With Bright Future ✨"
+ let fun=[
+ `🎉 You are <b>${y}</b> years of pure greatness!`,
+ `🔥 ${y} years and still unbeatable!`,
+ `😎 ${y}? LEGEND MODE ACTIVATED!`,
+ `🚀 ${y} years of awesomeness completed!`,
+ `🌟 ${y} and shining brighter than stars!`
  ];
 
- document.getElementById("funResult").innerText =
- funResults[Math.floor(Math.random()*funResults.length)];
+ document.getElementById("result").innerHTML=
+ fun[Math.floor(Math.random()*fun.length)];
+
+ document.getElementById("dashboard").style.display="block";
+
+ document.getElementById("exactAge").innerHTML=`${y} Years ${m} Months ${d} Days`;
+
+ let next = new Date(today.getFullYear(),birth.getMonth(),birth.getDate());
+ if(next<today) next.setFullYear(today.getFullYear()+1);
+
+ const left=Math.ceil((next-today)/(1000*60*60*24));
+ document.getElementById("nextBday").innerHTML=`🎂 ${left} Days Left`;
+
+ const month=birth.getMonth()+1;
+ const day=birth.getDate();
+ let z="";
+
+ if((month==1&&day>=20)||(month==2&&day<=18)) z="Aquarius";
+ else if((month==2&&day>=19)||(month==3&&day<=20)) z="Pisces";
+ else if((month==3&&day>=21)||(month==4&&day<=19)) z="Aries";
+ else if((month==4&&day>=20)||(month==5&&day<=20)) z="Taurus";
+ else if((month==5&&day>=21)||(month==6&&day<=20)) z="Gemini";
+ else if((month==6&&day>=21)||(month==7&&day<=22)) z="Cancer";
+ else if((month==7&&day>=23)||(month==8&&day<=22)) z="Leo";
+ else if((month==8&&day>=23)||(month==9&&day<=22)) z="Virgo";
+ else if((month==9&&day>=23)||(month==10&&day<=22)) z="Libra";
+ else if((month==10&&day>=23)||(month==11&&day<=21)) z="Scorpio";
+ else if((month==11&&day>=22)||(month==12&&day<=21)) z="Sagittarius";
+ else z="Capricorn";
+
+ document.getElementById("zodiac").innerHTML=z;
+
+ const lived=Math.floor((today-birth)/(1000*60*60*24));
+ document.getElementById("daysLived").innerHTML=lived;
+ document.getElementById("weeksLived").innerHTML=Math.floor(lived/7);
+
+ const mot=[
+ "✨ The world is lucky to have you.",
+ "🔥 Your future is brighter than you think.",
+ "🚀 You’re built for greatness.",
+ "🌟 Best version of you is loading...",
+ "💪 You are unstoppable."
+ ];
+
+ document.getElementById("motivation").innerHTML=
+ mot[Math.floor(Math.random()*mot.length)];
+
+ storedMessage = document.getElementById("result").innerText;
 }
+
+// SHARE
+function shareWhatsApp(){
+ let msg = document.getElementById("result").innerText;
+ window.open("https://wa.me/?text="+encodeURIComponent(msg));
+}
+
+function copyResult(){
+ navigator.clipboard.writeText(document.getElementById("result").innerText);
+ alert("Copied!");
+}
+
+// SAVE SCREEN
+function saveScreen(){
+ html2canvas(document.body).then(canvas=>{
+  const link=document.createElement("a");
+  link.download="SmartAgeAI_Result.png";
+  link.href=canvas.toDataURL();
+  link.click();
+ });
+}
+
 </script>
 
 </body>
