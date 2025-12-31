@@ -20,165 +20,181 @@
 body{
   margin:0;
   font-family:Segoe UI, Arial;
-  background:#ffffff;
-  color:#111;
+  background:#050814;
+  color:white;
   text-align:center;
 }
 
-.container{
-  max-width:850px;
-  margin:auto;
-  padding:35px 20px;
+/* NAVBAR */
+nav{
+  background:#0b122c;
+  padding:15px 0;
+  font-size:18px;
+  font-weight:500;
+}
+nav a{
+  color:white;
+  margin:0 12px;
+  text-decoration:none;
+}
+nav a:hover{
+  color:#8aa4ff;
 }
 
-h1{
-  font-size:36px;
-  margin-bottom:5px;
+/* MAIN BOX */
+.box{
+  max-width:750px;
+  margin:40px auto;
+  background:#070d27;
+  padding:35px 25px;
+  border-radius:25px;
+  box-shadow:0 0 40px rgba(0,0,0,0.6);
 }
 
-p{
-  color:#444;
+.logo{
+  font-size:30px;
+  font-weight:700;
+}
+
+.sub{
+  color:#bfc3ff;
+  margin-bottom:25px;
 }
 
 input{
-  padding:12px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  width:250px;
+  padding:14px;
+  border-radius:12px;
+  border:none;
   outline:none;
+  width:80%;
+  max-width:380px;
+  background:#ffffff;
+  color:#000;
+  font-size:15px;
 }
 
 button{
-  padding:12px 25px;
-  border-radius:6px;
+  width:200px;
+  padding:12px;
+  border-radius:12px;
   border:none;
+  margin-top:12px;
+  font-size:17px;
   cursor:pointer;
-  background:#4a6cff;
-  color:white;
-  font-weight:600;
-  margin-top:10px;
 }
 
-button:hover{
-  background:#264dff;
+/* Purple Button */
+.calc{
+  background:linear-gradient(to right,#7d5cff,#9b7bff);
+  color:white;
+}
+
+/* Green Button */
+.support{
+  background:#1fb54a;
+  color:white;
 }
 
 #result{
   margin-top:20px;
   font-size:22px;
   font-weight:bold;
-  color:#111;
 }
 
 #dashboard{
  display:none;
- margin-top:40px;
+ margin-top:35px;
 }
 
-.dash-grid{
+.grid{
  display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
  padding:10px;
 }
 
 .card{
- background:#f6f7ff;
- padding:18px;
- border-radius:10px;
- border:1px solid #dfe3ff;
+ background:#0c1436;
+ padding:15px;
+ border-radius:12px;
+ border:1px solid rgba(255,255,255,.08);
 }
 
 footer{
- margin-top:40px;
- padding:15px;
- color:#555;
+ margin-top:25px;
+ padding:18px;
+ color:#bbb;
  font-size:13px;
- border-top:1px solid #ddd;
 }
 
-/* Loader */
 #loading{
  display:none;
- margin-top:20px;
+ margin-top:12px;
 }
 
 .loader{
- width:90px;
- height:90px;
+ width:80px;
+ height:80px;
  border-radius:50%;
  margin:auto;
- border:5px solid #ddd;
- border-top:5px solid #4a6cff;
+ border:5px solid rgba(255,255,255,0.2);
+ border-top:5px solid white;
  animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
  to{transform:rotate(360deg)}
 }
-
-.glow{color:#4a6cff}
-
 </style>
-
 </head>
+
 <body>
 
-<div class="container">
-  <h1>SmartAgeAI</h1>
-  <p>Enter your Birth Date to Check Your AI Powered Age</p>
+<h2 style="margin-top:15px">SmartAgeAI</h2>
 
-  <input type="date" id="dob">
-  <br>
-  <button onclick="startProcess()">Calculate Age</button>
+<nav>
+ <a href="#">Home</a>
+ <a href="#">About</a>
+ <a href="#">Privacy</a>
+ <a href="#">Terms</a>
+</nav>
+
+<div class="box">
+  <div class="logo">🎯 SmartAgeAI</div>
+  <p class="sub">Find Your Real Age, Life Stats & AI Insights</p>
+
+  <input type="date" id="dob"><br>
+
+  <button class="calc" onclick="startProcess()">Calculate</button>
 
   <div id="loading">
     <div class="loader"></div>
-    <p style="margin-top:10px">Calculating...</p>
+    <p>Calculating...</p>
   </div>
 
   <div id="result"></div>
 
+  <button class="support">Support Us 💚</button>
+
   <div id="dashboard">
-    <h2>Your Age Dashboard</h2>
+    <h3>Your AI Age Dashboard</h3>
 
-    <div class="dash-grid">
-      <div class="card">
-        <h3>Exact Age</h3>
-        <p id="exactAge"></p>
-      </div>
-
-      <div class="card">
-        <h3>Next Birthday</h3>
-        <p id="nextBday"></p>
-      </div>
-
-      <div class="card">
-        <h3>Zodiac Sign</h3>
-        <p id="zodiac"></p>
-      </div>
-
-      <div class="card">
-        <h3>Days Lived</h3>
-        <p id="daysLived"></p>
-      </div>
-
-      <div class="card">
-        <h3>Weeks Lived</h3>
-        <p id="weeksLived"></p>
-      </div>
-
-      <div class="card">
-        <h3>AI Fun Message</h3>
-        <p id="motivation"></p>
-      </div>
+    <div class="grid">
+      <div class="card"><h4>Exact Age</h4><p id="exactAge"></p></div>
+      <div class="card"><h4>Next Birthday</h4><p id="nextBday"></p></div>
+      <div class="card"><h4>Zodiac Sign</h4><p id="zodiac"></p></div>
+      <div class="card"><h4>Days Lived</h4><p id="daysLived"></p></div>
+      <div class="card"><h4>Weeks Lived</h4><p id="weeksLived"></p></div>
+      <div class="card"><h4>AI Message</h4><p id="motivation"></p></div>
     </div>
   </div>
 </div>
 
 <footer>
- SmartAgeAI © 2026
+© 2025 SmartAgeAI — Founded & Owned by Md Ariful Islam Khan Sifat<br>
+Bangladesh • Worldwide Service 🌍
 </footer>
+
 
 <script>
 
@@ -208,15 +224,7 @@ function calculateAge(){
   if(d<0){m--;d+=30;}
   if(m<0){y--;m+=12;}
 
-  const funnyLines=[
-    `You are ${y} years old 🎉`,
-    `${y} Years Completed!`,
-    `${y} years of life journey!`,
-    `Age: ${y} — Still Awesome 😎`
-  ];
-
-  document.getElementById("result").innerHTML=
-  funnyLines[Math.floor(Math.random()*funnyLines.length)];
+  document.getElementById("result").innerHTML=`🎉 You are ${y} Years Old`;
 
   document.getElementById("dashboard").style.display="block";
 
@@ -249,10 +257,10 @@ function calculateAge(){
   document.getElementById("weeksLived").innerHTML=Math.floor(lived/7);
 
   const mot=[
-    "The world is lucky to have you.",
-    "Your future is bright.",
-    "You are unstoppable.",
-    "Best days are coming!",
+    "✨ You are special!",
+    "🔥 Great future ahead!",
+    "🚀 Keep shining!",
+    "🌟 Stay unstoppable!"
   ];
   document.getElementById("motivation").innerHTML=
   mot[Math.floor(Math.random()*mot.length)];
