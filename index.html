@@ -2,26 +2,40 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Smart Age AI – Advanced Age Calculator</title>
+<title>SmartAgeAI – Advanced AI Age Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="SmartAgeAI is a premium AI powered age calculator that shows exact age, birthday countdown, zodiac sign, life stats and motivational message.">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<section class="container">
-<h1>Smart Age <span>AI</span></h1>
-<p class="tag">AI Powered Advanced Age Calculator</p>
 
-<div class="box">
-<label>Date of Birth</label>
-<input type="date" id="dob">
-<button onclick="calculateAge()">Calculate Age</button>
+<nav>
+<h2>SmartAgeAI</h2>
+<div>
+<a href="/">Home</a>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="disclaimer.html">Disclaimer</a>
 </div>
+</nav>
 
-<div class="result" id="result"></div>
+<section class="container">
+<h1>🎯 SmartAgeAI</h1>
+<p>Find Your Real Age, Life Stats & AI Insights</p>
 
-<p class="note">More AI features, Zodiac, Life Insights & Dashboard coming soon 🚀</p>
+<input type="date" id="dob">
+<button onclick="calculateAge()">Calculate</button>
+
+<div id="result" class="box"></div>
+<div id="ai" class="box"></div>
+
+<a class="donate" href="#">Support Us 💚</a>
 </section>
+
+<footer>
+<p>© SmartAgeAI — All Rights Reserved</p>
+</footer>
 
 <script src="script.js"></script>
 </body>
