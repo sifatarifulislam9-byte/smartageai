@@ -20,76 +20,59 @@
 body{
   margin:0;
   font-family:Segoe UI, Arial;
-  background:linear-gradient(130deg,#050814,#111b48,#1e0f49);
-  background-size:400% 400%;
-  animation:gradientMove 10s infinite alternate;
-  color:white;
+  background:#ffffff;
+  color:#111;
   text-align:center;
 }
 
-@keyframes gradientMove{
-  0%{background-position:0 0;}
-  100%{background-position:100% 100%;}
-}
-
 .container{
-  max-width:800px;
+  max-width:850px;
   margin:auto;
-  padding:30px;
+  padding:35px 20px;
 }
 
 h1{
-  font-size:38px;
-  letter-spacing:1px;
-  animation:fade 1.3s;
+  font-size:36px;
+  margin-bottom:5px;
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(-10px);}
-  to{opacity:1;transform:translateY(0);}
+p{
+  color:#444;
 }
 
 input{
   padding:12px;
-  border-radius:8px;
-  border:none;
-  outline:none;
+  border-radius:6px;
+  border:1px solid #ccc;
   width:250px;
+  outline:none;
 }
 
 button{
   padding:12px 25px;
-  border-radius:8px;
+  border-radius:6px;
   border:none;
   cursor:pointer;
-  background:#6c5ce7;
+  background:#4a6cff;
   color:white;
-  font-weight:bold;
+  font-weight:600;
   margin-top:10px;
-  transition:.3s;
 }
 
 button:hover{
-  background:#8e7ff5;
-  transform:scale(1.03);
+  background:#264dff;
 }
 
 #result{
-  margin-top:25px;
+  margin-top:20px;
   font-size:22px;
   font-weight:bold;
-  animation:pop .6s ease-in-out;
-}
-
-@keyframes pop{
-  from{opacity:0;transform:scale(.6);}
-  to{opacity:1;transform:scale(1);}
+  color:#111;
 }
 
 #dashboard{
  display:none;
  margin-top:40px;
- animation:fade 1s;
 }
 
 .dash-grid{
@@ -100,38 +83,18 @@ button:hover{
 }
 
 .card{
- background:rgba(255,255,255,.08);
- color:white;
+ background:#f6f7ff;
  padding:18px;
- border-radius:12px;
- border:1px solid rgba(255,255,255,.1);
- backdrop-filter:blur(6px);
- transform:translateY(20px);
- opacity:0;
- animation:cardShow .7s forwards;
-}
-
-.card:nth-child(2){animation-delay:.2s;}
-.card:nth-child(3){animation-delay:.3s;}
-.card:nth-child(4){animation-delay:.4s;}
-.card:nth-child(5){animation-delay:.5s;}
-.card:nth-child(6){animation-delay:.6s;}
-
-@keyframes cardShow{
-  to{opacity:1;transform:translateY(0);}
+ border-radius:10px;
+ border:1px solid #dfe3ff;
 }
 
 footer{
  margin-top:40px;
- padding:20px;
- color:#bbb;
+ padding:15px;
+ color:#555;
  font-size:13px;
-}
-
-/* Fun Glow */
-.glow{
- color:#ffdd59;
- text-shadow:0 0 10px #ffdd59;
+ border-top:1px solid #ddd;
 }
 
 /* Loader */
@@ -141,12 +104,12 @@ footer{
 }
 
 .loader{
- width:110px;
- height:110px;
+ width:90px;
+ height:90px;
  border-radius:50%;
  margin:auto;
- border:6px solid rgba(255,255,255,0.2);
- border-top:6px solid white;
+ border:5px solid #ddd;
+ border-top:5px solid #4a6cff;
  animation:spin 1s linear infinite;
 }
 
@@ -154,14 +117,16 @@ footer{
  to{transform:rotate(360deg)}
 }
 
+.glow{color:#4a6cff}
+
 </style>
 
 </head>
 <body>
 
 <div class="container">
-  <h1>✨ SmartAgeAI</h1>
-  <p>Enter your Birth Date & Experience the Magic</p>
+  <h1>SmartAgeAI</h1>
+  <p>Enter your Birth Date to Check Your AI Powered Age</p>
 
   <input type="date" id="dob">
   <br>
@@ -169,13 +134,13 @@ footer{
 
   <div id="loading">
     <div class="loader"></div>
-    <p style="margin-top:10px">AI Calculating...</p>
+    <p style="margin-top:10px">Calculating...</p>
   </div>
 
   <div id="result"></div>
 
   <div id="dashboard">
-    <h2>🎯 Your AI Powered Age Dashboard</h2>
+    <h2>Your Age Dashboard</h2>
 
     <div class="dash-grid">
       <div class="card">
@@ -212,7 +177,7 @@ footer{
 </div>
 
 <footer>
- SmartAgeAI © 2026 – Powered by AI
+ SmartAgeAI © 2026
 </footer>
 
 <script>
@@ -228,7 +193,7 @@ function startProcess(){
  setTimeout(()=>{
   calculateAge();
   document.getElementById("loading").style.display="none";
- },1400);
+ },1200);
 }
 
 function calculateAge(){
@@ -244,11 +209,10 @@ function calculateAge(){
   if(m<0){y--;m+=12;}
 
   const funnyLines=[
-    `🎉 You are <span class='glow'>${y}</span> years of greatness!`,
-    `🔥 ${y} Years Old & Still Legendary!`,
-    `🚀 ${y} years completed in life journey!`,
-    `🌟 ${y}? Prime Human Version Activated!`,
-    `😎 ${y} years of pure awesomeness!`
+    `You are ${y} years old 🎉`,
+    `${y} Years Completed!`,
+    `${y} years of life journey!`,
+    `Age: ${y} — Still Awesome 😎`
   ];
 
   document.getElementById("result").innerHTML=
@@ -261,7 +225,7 @@ function calculateAge(){
   let next=new Date(today.getFullYear(),birth.getMonth(),birth.getDate());
   if(next<today) next.setFullYear(today.getFullYear()+1);
   const diff=Math.ceil((next-today)/(1000*60*60*24));
-  document.getElementById("nextBday").innerHTML=`🎂 ${diff} Days Left`;
+  document.getElementById("nextBday").innerHTML=`${diff} Days Left`;
 
   const month=birth.getMonth()+1;
   const day=birth.getDate();
@@ -285,11 +249,10 @@ function calculateAge(){
   document.getElementById("weeksLived").innerHTML=Math.floor(lived/7);
 
   const mot=[
-    "✨ The world is lucky to have you.",
-    "🔥 Your future is brighter than ever.",
-    "🚀 You’re built for greatness.",
-    "🌟 Best days are ahead.",
-    "💪 You are unstoppable."
+    "The world is lucky to have you.",
+    "Your future is bright.",
+    "You are unstoppable.",
+    "Best days are coming!",
   ];
   document.getElementById("motivation").innerHTML=
   mot[Math.floor(Math.random()*mot.length)];
